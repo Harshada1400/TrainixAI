@@ -25,11 +25,7 @@ const LoginPage = () => {
     if (success) {
       navigate("/dashboard");
     } else {
-      toast({
-        title: "Login failed",
-        description: "Invalid email or password. Try trainee@company.com or admin@company.com with password 'password'.",
-        variant: "destructive",
-      });
+      toast.error("Login failed: Invalid email or password. Try trainee@company.com or admin@company.com with password 'password'.");
     }
   };
 
