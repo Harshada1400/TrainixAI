@@ -33,7 +33,7 @@ const AppSidebar = () => {
         <div className="w-9 h-9 rounded-lg gradient-primary flex items-center justify-center">
           <Brain className="w-5 h-5 text-primary-foreground" />
         </div>
-        <span className="text-lg font-bold font-display text-sidebar-foreground">SkillForge</span>
+        <span className="text-lg font-bold font-display text-sidebar-foreground"><span className="text-lg font-bold font-display text-sidebar-foreground">Trainix AI</span></span>
       </div>
 
       {/* Nav */}
