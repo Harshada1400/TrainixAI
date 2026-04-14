@@ -19,14 +19,14 @@ const ACCEPTED_EXTENSIONS = [".pdf", ".doc", ".docx"];
 
 const AdminPage = () => {
   const { user } = useAuth();
-  if (user?.role !== "admin") return <Navigate to="/dashboard" replace />;
-
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [prompt, setPrompt] = useState("");
   const [generating, setGenerating] = useState(false);
   const [generatedOutput, setGeneratedOutput] = useState<string | null>(null);
   const [dragOver, setDragOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  if (user?.role !== "admin") return <Navigate to="/dashboard" replace />;
 
   const validateFile = (file: File): boolean => {
     const ext = "." + file.name.split(".").pop()?.toLowerCase();
