@@ -10,10 +10,12 @@ const AppLayout = () => {
   if (!isAuthenticated) return <Navigate to="/" replace />;
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex h-screen">
       <AppSidebar />
-      <main className={`flex-1 overflow-auto ${isMobile ? "pt-14" : ""}`}>
-        <Outlet />
+      <main className={`flex-1 overflow-hidden flex flex-col ${isMobile ? "pt-14" : ""}`}>
+        <div className="flex-1 overflow-auto">
+          <Outlet />
+        </div>
       </main>
     </div>
   );
