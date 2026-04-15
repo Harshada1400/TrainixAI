@@ -405,11 +405,10 @@ const TrainingPage = () => {
                       Retry with New Questions
                     </Button>
                   )}
-                    </div>
-                  </div>
-                )}
+                </div>
               </motion.div>
-            )}
+              );
+            })()}
           </DialogContent>
         </Dialog>
       </div>
