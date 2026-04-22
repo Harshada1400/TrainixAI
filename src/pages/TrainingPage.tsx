@@ -588,16 +588,14 @@ const TrainingPage = () => {
         }
 
         if (rawQuestions && Array.isArray(rawQuestions) && rawQuestions.length > 0) {
-          const formattedQuestions: QuizQuestion[] = rawQuestions.map((q: { id?: string; question?: string; options?: string[] | Record<string, string>; correctAnswer?: number; answer?: string; text?: string }, i: number) => {
-            // If already formatted by the strict parser above, just return
-            if (q.id && (q.id.includes('strict') || q.id.includes('reply-strict'))) return q;
-
-            // Handle mixed/legacy formats
+          const formattedQuestions: QuizQuestion[] = rawQuestions.map((q: { id?: string; question?: string; options?: string[] | Record<string, string>; correctAnswer?: number; answer?: string; text?: string; type?: string }, i: number) => {
+            // Even if already formatted, we re-structure to ensure TypeScript is happy with the interface
             let options = q.options;
             let correctAnswer = q.correctAnswer;
 
             if (options && typeof options === 'object' && !Array.isArray(options)) {
-              options = [options.A, options.B, options.C, options.D].filter(Boolean);
+              const optionsObj = options as Record<string, string>;
+              options = [optionsObj.A, optionsObj.B, optionsObj.C, optionsObj.D].filter(Boolean);
               const answerMap: Record<string, number> = { "A": 0, "B": 1, "C": 2, "D": 3 };
               if (typeof q.answer === 'string') correctAnswer = answerMap[q.answer.toUpperCase()] ?? 0;
             }
@@ -607,7 +605,7 @@ const TrainingPage = () => {
               question: q.question || q.text || "Question text missing",
               options: Array.isArray(options) ? options : ["A", "B", "C", "D"],
               correctAnswer: typeof correctAnswer === 'number' ? correctAnswer : 0,
-              type: "mcq" as const,
+              type: (q.type as "mcq" | "true-false") || "mcq",
             };
           });
           setShuffledQuiz(shuffleQuiz(formattedQuestions));
