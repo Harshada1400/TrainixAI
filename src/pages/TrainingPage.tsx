@@ -378,13 +378,13 @@ const TrainingPage = () => {
           .map((topic) => {
             let content = `### ${topic.title || ""}\n`;
             if (topic.subtopics && Array.isArray(topic.subtopics)) {
-              content += (topic.subtopics as string[]).map((st) => `- ${st}`).join("\n") ;
+              content += (topic.subtopics as string[]).map((st) => `- ${st}`).join("\n");
             }
             return content;
           })
-          .join("\n\n"); 
+          .join("\n\n");
       }
-
+      console.log(readingContent)
       if (readingContent) {
         // Clean the content to remove references to the source/PDF extraction
         const cleanedReadingContent = readingContent
