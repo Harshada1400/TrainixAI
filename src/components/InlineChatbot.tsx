@@ -56,16 +56,16 @@ const InlineChatbot = ({ dayTitle }: InlineChatbotProps) => {
 
     try {
       console.log(`[Inline Chat] Calling AI with Input: "${currentInput}"`);
-      const response = await fetch("https://pooja37.app.n8n.cloud/webhook/68f69153-e7a0-4e90-ab01-1e2b22e26388/chat", {
+      const response = await fetch("https://dipali33.app.n8n.cloud/webhook/68f69153-e7a0-4e90-ab01-1e2b22e26388/chat", {
         method: "POST",
-        
+
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           chatInput: currentInput,
           message: currentInput, // Support for common n8n AI node defaults
-          sessionId: user?.email || "training-session-inline", 
+          sessionId: user?.email || "training-session-inline",
           context: `User is studying: ${dayTitle}`
         }),
       });
@@ -79,7 +79,7 @@ const InlineChatbot = ({ dayTitle }: InlineChatbotProps) => {
 
       const data = await response.json();
       console.log("[Inline Chat] Response Data:", data);
-      
+
       // Robust recursive parsing to handle double-stringified JSON or nested objects
       const extractText = (obj: unknown): string => {
         if (!obj) return "";
@@ -91,16 +91,16 @@ const InlineChatbot = ({ dayTitle }: InlineChatbotProps) => {
           return obj;
         }
         if (Array.isArray(obj)) return extractText(obj[0]);
-        
+
         const possibleObj = obj as Record<string, unknown>;
         return extractText(
-          possibleObj.reply || 
-          possibleObj.output || 
-          possibleObj.response || 
-          possibleObj.message || 
-          possibleObj.text || 
-          possibleObj.answer || 
-          possibleObj.content || 
+          possibleObj.reply ||
+          possibleObj.output ||
+          possibleObj.response ||
+          possibleObj.message ||
+          possibleObj.text ||
+          possibleObj.answer ||
+          possibleObj.content ||
           JSON.stringify(obj)
         );
       };
